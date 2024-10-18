@@ -1,0 +1,30 @@
+# cad_draft_reviewing/config/config.yaml
+
+data:
+  pdf_dir: 'data/raw/cad_pdfs/'
+  png_dir: 'data/processed/pngs/'
+  tiles_dir: 'data/processed/tiles/'
+  annotations_file: 'data/annotations/annotations.json'
+
+model:
+  vocab_size: 10000
+  d_model: 512
+  num_heads: 8
+  d_ff: 2048
+  num_layers: 6
+  max_seq_length: 50
+  dropout: 0.1
+  img_channels: 3
+  embed_dim: 512
+  num_classes: 600
+
+training:
+  batch_size: 16
+  learning_rate: 1e-4
+  num_epochs: 10
+  threshold: 0.5
+
+knowledge_graph:
+  uri: 'bolt://localhost:7687'
+  user: 'neo4j'
+  password: 'password'
