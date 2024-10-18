@@ -20,15 +20,15 @@ The **CAD Draft Reviewing System** is designed to automate the analysis and vali
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/AilvenLIU/cad_draft_reviewing.git
-   cd cad_draft_reviewing
+   git clone https://github.com/AilvenLiu/cad_draft_review.git
+   cd cad_draft_review
    ```
 
 2. **Create a Virtual Environment**
 
    ```bash
-   python3 -m venv cad_draft_reviewing
-   source cad_draft_reviewing/bin/activate
+   python3 -m venv cad_draft_review
+   source cad_draft_review/bin/activate
    ```
 
 3. **Install Dependencies**
@@ -48,28 +48,25 @@ The **CAD Draft Reviewing System** is designed to automate the analysis and vali
 ### 1. Convert PDFs to PNGs
 
 ```bash
-python scripts/convert_pdfs.py
-Ask
-Copy
-Apply
+python scripts/convert_pdfs.py --input_dir ./data/raw/pdfs --output_dir ./data/processed/images
 ```
 
 ### 2. Tile Images
 
 ```bash
-python scripts/tile_images.py
+python scripts/tile_images.py --input_dir ./data/processed/images --output_dir ./data/processed/tiles
 ```
 
 ### 3. Train the Model
 
 ```bash
-python scripts/train.py
+python scripts/train.py --train_dir ./data/processed/tiles --val_dir ./data/processed/tiles
 ```
 
 ### 4. Launch the Interactive Dashboard
 
 ```bash
-streamlit run app/streamlit_app.py
+streamlit run app/streamlit_app.py -- --data_dir ./data/processed/tiles
 ```
 
 ## Contributing
@@ -78,7 +75,7 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## License
 
-MIT License
+GPL-3.0 License
 
 ## Acknowledgements
 

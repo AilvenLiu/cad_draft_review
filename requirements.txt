@@ -1,5 +1,3 @@
-# cad_draft_reviewing/requirements.txt
-
 torch==2.0.1
 torchvision==0.15.2
 pillow==9.5.0
