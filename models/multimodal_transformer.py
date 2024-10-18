@@ -5,7 +5,6 @@ from .world_model import WorldModel
 from .attention import MultiHeadAttention
 from .feed_forward import FeedForward
 from .positional_encoding import PositionalEncoding
-
 class ObjectDetectionHead(nn.Module):
     def __init__(self, d_model: int, num_classes: int, num_queries: int = 100):
         super().__init__()

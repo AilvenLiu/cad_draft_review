@@ -1,4 +1,5 @@
 import torch
+from config.logging_config import logger
 
 def select_uncertain_samples(model, dataloader, device, threshold=0.5):
     """

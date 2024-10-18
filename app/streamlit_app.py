@@ -1,5 +1,7 @@
 import streamlit as st
+import os
 from PIL import Image, ImageDraw
+from config.logging_config import logger
 from modules.object_detection import perform_detection
 from modules.text_recognition import extract_text
 from modules.text_association import associate_text_with_signs
@@ -15,9 +17,13 @@ def main():
         with open("data/raw/cad_pdfs/uploaded.pdf", "wb") as f:
             f.write(uploaded_file.getbuffer())
         
+        logger.info("Uploaded PDF saved")
+        
         # Convert PDF to PNG
         from utils.pdf_to_png import convert_pdf_to_png
         convert_pdf_to_png("data/raw/cad_pdfs/uploaded.pdf", "data/processed/pngs/")
+        
+        logger.info("PDF converted to PNG")
         
         # Tile Images
         from utils.image_tiling import tile_image
@@ -36,6 +42,8 @@ def main():
             tile_detections = detect_objects_in_tiles(tile_paths)
             detections.extend(tile_detections)
         
+        logger.info("Object detection completed")
+        
         # Perform OCR on Tiles
         ocr_results = []
         from modules.text_recognition import extract_text
@@ -43,23 +51,33 @@ def main():
             ocr = extract_text(tile['tile_path'])
             ocr_results.extend(ocr)
         
+        logger.info("OCR completed")
+        
         # Associate Text with Signs
         from modules.text_association import associate_text_with_signs
         detections = associate_text_with_signs(detections, ocr_results)
+        
+        logger.info("Text association completed")
         
         # Initialize Knowledge Base
         from modules.knowledge_base import initialize_knowledge_base
         initialize_knowledge_base("data/annotations/rules.xlsx", source_type='excel')
         
+        logger.info("Knowledge base initialized")
+        
         # Validate Detections
         from modules.knowledge_base import validate_detections
         errors = validate_detections(detections)
+        
+        logger.info("Detections validated")
         
         # Visualize Detections and Errors
         image = Image.open(detections[0]['tile_path']).convert("RGB")
         visualize_detections(image, detections, errors)
         
         st.image(image, caption='CAD Draft with Detections and Errors', use_column_width=True)
+        
+        logger.info("Detections visualized")
         
         # Feedback Mechanism
         if st.button("Submit Feedback"):

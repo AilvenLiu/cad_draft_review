@@ -27,8 +27,9 @@ The **CAD Draft Reviewing System** is designed to automate the analysis and vali
 2. **Create a Virtual Environment**
 
    ```bash
-   python3 -m venv cad_draft_review
-   source cad_draft_review/bin/activate
+   python3 -m venv .venv   
+   source .venv/bin/activate
+   python -m pip install --upgrade pip
    ```
 
 3. **Install Dependencies**
@@ -75,7 +76,7 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## License
 
-GPL-3.0 License
+This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) file for more details.
 
 ## Acknowledgements
 
